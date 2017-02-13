@@ -118,25 +118,34 @@ function longestWords (txt) {
 	var words = newTxt.split(" ");
 	var longestWords = [];
 	var wordCounter = 0;
+	var wordExist = false;
 	
 	for (i=0; i < words.length; i++) {
 		if(words[i] != "") {
-			if(wordCounter < 10) {
+			for(j=0; j < longestWords.length; j++) {
+				if(words[i] == longestWords[j]) {
+					wordExist = true;
+					j = longestWords.length;
+				}
+			}
+			if(wordCounter < 10 && wordExist == false) {
 				longestWords.push(words[i]);
 				wordCounter++;
 				longestWords.sort();
 				longestWords.sort(function(a, b){return b.length-a.length});
-			} else {
+			} else if(wordCounter = 10 && wordExist == false) {
 				if(words[i].length > longestWords[9].length) {
 					longestWords[9] = words[i];
 					longestWords.sort();
 					longestWords.sort(function(a, b){return b.length-a.length});
 				}
 			}
+			
 		}
+		wordExist = false;
 	}
 	
-	return longestWords;
+	return longestWords.slice(0,10);
 }
 
 function mostFrequentWords (txt) {
@@ -157,14 +166,7 @@ function mostFrequentWords (txt) {
 
 
     frequentWords.sort(function(a, b) {
-      if (a.count < b.count) {
-        return 1;
-      }
-      if (b.count > a.count) {
-        return -1;
-      }
-      return 0;
-    })  
+		return b.count-a.count})  
 
 
     return frequentWords.slice(0,10);
