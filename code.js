@@ -101,7 +101,7 @@ function palindromes (txt) {
 	var palindrome = [];
 
 	for (i=0; i < words.length; i++) {
-		if(words[i] != "") {
+		if(words[i] != "" && words[i].length > 2) {
 			word = words[i]
 			checkPalindrome = word.split("").reverse().join("");
 			if(word === checkPalindrome) {
